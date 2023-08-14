@@ -11,9 +11,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -129,6 +131,45 @@ public class Game2048Activity extends AppCompatActivity {
         super.onResume();
         hideSystemUI();
     }
+    private void checkForWin() {
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 6; j++) {
+                if (matrix[i][j] == 2048) {
+                    showWinDialog();
+                    return;
+                }
+            }
+        }
+    }
+
+    private void showWinDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Inflate the custom layout
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_2048_win, null);
+
+        // Set up the AlertDialog
+        builder.setView(dialogView);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCancelable(false);
+
+
+        // Set up the custom action button
+        ImageView playImg = dialogView.findViewById(R.id.playImg);
+        playImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Do your custom action here
+                khoitao();
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+
     public void setBOX() {
         activityGame2048Binding.textPoint.setText(String.valueOf(scores));
         activityGame2048Binding.box11.setImageResource(getBackground(matrix[1][1]));
@@ -468,6 +509,7 @@ public class Game2048Activity extends AppCompatActivity {
                     }
                 }
             }
+            checkForWin();
             if (check == true) randdomnumber();
             gameove();
             setBOX();

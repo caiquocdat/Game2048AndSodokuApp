@@ -75,8 +75,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
     <LinearLayout
         android:id="@+id/khungchoi"
         android:layout_width="match_parent"
@@ -803,8 +801,6 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
-
-
     <LinearLayout
         android:gravity="center"
         android:layout_width="match_parent"
@@ -825,5 +821,4 @@
             android:src="@drawable/img_undo"/>
 
     </LinearLayout>
-
 </LinearLayout>
